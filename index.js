@@ -32,13 +32,14 @@ alexaApp.launch(function(request, response) {
 
 alexaApp.dictionary = { "names": ["matt", "joe", "bob", "bill", "mary", "jane", "dawn"] };
 
-alexaApp.intent("nameIntent", {
-    "slots": { "NAME": "LITERAL" },
+alexaApp.intent("me", {
+    "slots": { "TWEET": "LITERAL" },
     "utterances": [
-      "my {name is|name's} {names|NAME}", "set my name to {names|NAME}"
+      "me the following {tweet|TWEET}"
     ]
   },
   function(request, response) {
+    console.log('Intent received')
     response.say("Success!");
   }
 );
