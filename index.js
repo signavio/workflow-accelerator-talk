@@ -1,46 +1,35 @@
-var express = require("express");
-var alexa = require("alexa-app");
+module.change_code = 1;
+'use strict';
 
-var PORT = process.env.PORT || 8080;
-var app = express();
+var alexa = require( 'alexa-app' );
+var app = new alexa.app( 'test-skill' );
 
-// ALWAYS setup the alexa app and attach it to express before anything else.
-var alexaApp = new alexa.app("test");
 
-alexaApp.express({
-  expressApp: app,
-  //router: express.Router(),
+app.launch( function( request, response ) {
+	response.say( 'Welcome to your test skill' ).reprompt( 'Way to go. You got it to run. Bad ass.' ).shouldEndSession( false );
+} );
 
-  // verifies requests come from amazon alexa. Must be enabled for production.
-  // You can disable this if you're running a dev environment and want to POST
-  // things to test behavior. enabled by default.
-  checkCert: false,
 
-  // sets up a GET route when set to true. This is handy for testing in
-  // development, but not recommended for production. disabled by default
-  debug: true
-});
+app.error = function( exception, request, response ) {
+	console.log(exception)
+	console.log(request);
+	console.log(response);	
+	response.say( 'Sorry an error occured ' + error.message);
+};
 
-// now POST calls to /test in express will be handled by the app.request() function
-
-// from here on you can setup any other express routes or middlewares as normal
-app.set("view engine", "ejs");
-
-alexaApp.launch(function(request, response) {
-  response.say("You launched the app!");
-});
-
-alexaApp.dictionary = { "names": ["matt", "joe", "bob", "bill", "mary", "jane", "dawn"] };
-
-alexaApp.intent("nameIntent", {
-    "slots": { "NAME": "LITERAL" },
-    "utterances": [
-      "my {name is|name's} {names|NAME}", "set my name to {names|NAME}"
-    ]
+app.intent('sayNumber',
+  {
+    "slots":{"number":"NUMBER"}
+	,"utterances":[ 
+		"say the number {1-100|number}",
+		"give me the number {1-100|number}",
+		"tell me the number {1-100|number}",
+		"I want to hear you say the number {1-100|number}"]
   },
-  function(request, response) {
-    response.say("Success!");
+  function(request,response) {
+    var number = request.slot('number');
+    response.say("You asked for the number "+number);
   }
 );
 
-app.listen(PORT, () => console.log("Listening on port " + PORT + "."));
+module.exports = app;
