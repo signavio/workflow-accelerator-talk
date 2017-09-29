@@ -1,13 +1,15 @@
 var express = require("express");
 var alex = require("alex");
-
+var utils = require("./utils");
 var app = express();
 
 app.get("/", function(req, res) {
-  if (req.query.message) {
-    res.send(alex(req.query.message).messages);
+  var message = req.query.message;
+  if (message) {
+    messageValidated = utils.validate(message);
+    res.send(alex(messageValidated).messages);
   } else {
-    res.send("no message provided");
+    res.send("I couldn't find any message to evaluate.");
   }
 });
 
