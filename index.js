@@ -41,12 +41,12 @@ alexaApp.intent("me", {
     function (request, response) {
         console.log('Intent received')
         var tweet = request.slot("TWEET");
-        sendMail(tweet);
+        sendMail(tweet, response);
         response.say("Success! I retrieved your tweet " + tweet);
     }
 );
 
-function sendMail(tweet) {
+function sendMail(tweet, response) {
     var nodemailer = require('nodemailer');
 
     var transporter = nodemailer.createTransport({
@@ -68,10 +68,10 @@ function sendMail(tweet) {
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
-            res.json({yo: 'error'});
+            response.say("Error while sending mail.")
         } else {
+            response.say("Workflow triggered")
             console.log('Message sent: ' + info.response);
-            res.json({yo: info.response});
         }
         ;
     });
