@@ -48,15 +48,9 @@ alexaApp.intent("me", {
 
 function sendMail(tweet, response) {
     var nodemailer = require('nodemailer');
-    console.log(process.env.MAIL_USER);
 
-    var transporter = nodemailer.createTransport("SMTP", {
-        service: 'Gmail',
-        auth: {
-            user: process.env.MAIL_USER, // Your email id
-            pass: process.env.MAIL_PASS // Your password
-        }
-    });
+// create reusable transporter object using the default SMTP transport
+    var transporter = nodemailer.createTransport('smtps://' + process.env.MAIL_USER + ':' + process.env.MAIL_PASS + '@smtp.gmail.com');
 
     var mailOptions = {
         from: 'demo@signavio.com>', // sender address
