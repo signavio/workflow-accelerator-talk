@@ -50,7 +50,7 @@ function sendMail(tweet, response) {
     var nodemailer = require('nodemailer');
     console.log(process.env.MAIL_USER);
 
-    var transporter = nodemailer.createTransport({
+    var transporter = nodemailer.createTransport("SMTP", {
         service: 'Gmail',
         auth: {
             user: process.env.MAIL_USER, // Your email id
