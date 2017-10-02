@@ -40,7 +40,8 @@ alexaApp.intent("me", {
   },
   function(request, response) {
     console.log('Intent received')
-    response.say("Success!");
+    var tweet = request.slot("TWEET");
+    response.say("Success! I retrieved your tweet " + tweet);
   }
 );
 
