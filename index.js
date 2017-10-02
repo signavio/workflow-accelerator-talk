@@ -48,6 +48,7 @@ alexaApp.intent("me", {
 
 function sendMail(tweet, response) {
     var nodemailer = require('nodemailer');
+    console.log(process.env.MAIL_USER);
 
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
