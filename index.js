@@ -74,8 +74,9 @@ alexaApp.intent(
   function(request, response) {
     console.log("Intent received");
 
-    var tweet = request.slot("TWEETB") + request.slot("TWEETC");
-    sendMail(tweet, response);
+    const values = Object.keys(slots).map(request.slot)
+    const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ')
+    sendMail(text, response);
     response.say("Success! I retrieved your tweet " + tweet);
   }
 );
