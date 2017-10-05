@@ -46,30 +46,34 @@ alexaApp.intent("me", {
     }
 );
 
+
 function sendMail(tweet, response) {
     var nodemailer = require('nodemailer');
 
-// create reusable transporter object using the default SMTP transport
-    var transporter = nodemailer.createTransport('smtps://' + process.env.MAIL_USER + ':' + process.env.MAIL_PASS + '@smtp.gmail.com');
+    var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS
+        }
+    });
 
-    var mailOptions = {
-        from: 'demo@signavio.com>', // sender address
-        to: process.env.WF_MAIL, // list of receivers
-        subject: 'Email Example', // Subject line
-        text: tweet //, // plaintext body
-        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail({
+        from: process.env.MAIL_USER,
+        to: process.env.WF_MAIL,
+        subject: 'incoming tweet',
+        text: tweet
+    }, function(error, info) {
         if (error) {
             console.log(error);
             response.say("Error while sending mail.")
-        } else {
+        }
+        if (info) {
             response.say("Workflow triggered")
             console.log('Message sent: ' + info.response);
-        }
-        ;
+        };
     });
+
 }
 
 app.listen(PORT, () => console.log("Listening on port " + PORT + "."));
