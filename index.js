@@ -91,10 +91,30 @@ alexaApp.intent(
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
     // response.say('Thank you!');
-    const feedbackTimer = setInterval( () => {
+    function feedbackTimer(callback) {
+      return new Promise((resolve, reject) => {
+        var feedbackTimer = setInterval(() => {
+          if (preliminaryFeedback) {
+            console.log("preliminary Feedback received");
+            response.say(preliminaryFeedback);
+            preliminaryFeedback = undefined;
+            clearInterval(feedbackTimer);
+            return resolve('done');
+          }
+        }, 100);
+      });
+    };
+  
+    return feedbackTimer()
+      .then(() => {
+        console.log('Promise resolved');
+        // response.say(finalFeedback);
+      });
+
+    /*const feedbackTimer = setInterval( () => {
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
-        this.emit(':tell', 'Thank you!');
+        emit(':tell', 'Thank you!');
         preliminaryFeedback = undefined;
         clearInterval(feedbackTimer);
       }
@@ -103,7 +123,7 @@ alexaApp.intent(
         finalFeedback = undefined;
         clearInterval(feedbackTimer);
       }
-    }, 1000);
+    }, 1000);*/
     // response.say("Success! I retrieved your tweet " + text);
   }
 );
@@ -148,7 +168,7 @@ function sendMail(tweet, response) {
         response.say("Error while sending mail.");
       }
       if (info) {
-        response.say("Workflow triggered");
+        // response.say("Workflow triggered");
         console.log("Message sent: " + info.response);
       }
     }
