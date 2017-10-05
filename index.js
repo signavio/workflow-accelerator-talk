@@ -92,6 +92,7 @@ alexaApp.intent(
     sendMail(text, response);
     const feedbackTimer = setTimeout( () => {
       if (preliminaryFeedback) {
+        console.log("preliminary Feedback received");
         response.say(preliminaryFeedback);
         preliminaryFeedback = undefined;
       }
@@ -101,7 +102,7 @@ alexaApp.intent(
         clearTimeout(feedbackTimer);
       }
     }, 2000);
-    response.say("Success! I retrieved your tweet " + text);
+    // response.say("Success! I retrieved your tweet " + text);
   }
 );
 
