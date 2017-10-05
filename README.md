@@ -1,9 +1,6 @@
-# alexa-app-example
+# workflow-accelerator-talk
 
-An example Alexa Skill project using the [alexa-app](https://github.com/alexa-js/alexa-app) module with Express.
-
-
-
+`workflow-accelerator-talk` is an example Alexa Skill project based on the [alexa-app](https://github.com/alexa-js/alexa-app) module with Express.
 
 ## Deploying locally
 
@@ -11,7 +8,7 @@ Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https
 
 ```sh
 git clone git@github.com:alexa-js/alexa-app-example.git # or clone your own fork
-cd alexa-app-example
+cd workflow-accelerator-talk
 npm install
 npm start
 ```
@@ -39,3 +36,6 @@ Your app should now be running on *https://`<app-name>`.herokuapp.com*, where `<
 ### Testing it
 
 You can access a test page to verify if the basic setup is working fine: *https://`<app-name>`.herokuapp.com/test*.
+
+# Contribution
+We created the app as part of an example project for microservice orchestration with [Signavio Workflow Accelerator](http://signavio.com/workflow). However, pull requests are welcome.
