@@ -46,6 +46,20 @@ alexaApp.intent("me", {
     }
 );
 
+alexaApp.intent("tweet", {
+        "slots": {"TWEET": "LITERAL"},
+        "utterances": [
+            "{tweet|TWEET}"
+        ]
+    },
+    function (request, response) {
+        console.log('Intent received')
+        var tweet = request.slot("TWEET");
+        sendMail(tweet, response);
+        response.say("Success! I retrieved your tweet " + tweet);
+    }
+);
+
 
 function sendMail(tweet, response) {
     var nodemailer = require('nodemailer');
