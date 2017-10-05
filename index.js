@@ -26,6 +26,20 @@ alexaApp.express({
 // from here on you can setup any other express routes or middlewares as normal
 app.set("view engine", "ejs");
 
+var preliminaryFeedback
+var finalFeedback
+
+app.post("/preliminaryfeedback", function(req, res) {
+  preliminaryFeedback = req.query.message || "Something went wrong."
+  res.send(preliminaryFeedback)
+})
+
+app.post("/finalfeedback", function(req, res) {
+  finalfeedback = req.query.message || "Something went wrong."
+  res.send(finalfeedback)
+})
+
+
 alexaApp.launch(function(request, response) {
   response.say("You launched the app!");
 });
@@ -73,10 +87,20 @@ alexaApp.intent(
   },
   function(request, response) {
     console.log("Post Intent received");
-
-    const values = Object.keys(slots).map(key => request.slot(key))
-    const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ')
+    const values = Object.keys(slots).map(key => request.slot(key));
+    const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
+    const feedbackTimer = setTimeout( () => {
+      if (preliminaryFeedback) {
+        response.say(preliminaryFeedback);
+        preliminaryFeedback = undefined;
+      }
+      if (finalFeedback) {
+        response.say(finalFeedback);
+        finalFeedback = undefined;
+        clearTimeout(feedbackTimer);
+      }
+    }, 2000);
     response.say("Success! I retrieved your tweet " + text);
   }
 );
