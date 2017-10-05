@@ -90,7 +90,7 @@ alexaApp.intent(
     const values = Object.keys(slots).map(key => request.slot(key));
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
-    response.say('Thank you!');
+    // response.say('Thank you!');
     const feedbackTimer = setTimeout( () => {
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
@@ -102,7 +102,7 @@ alexaApp.intent(
         finalFeedback = undefined;
         clearTimeout(feedbackTimer);
       }
-    }, 2000);
+    }, 100);
     // response.say("Success! I retrieved your tweet " + text);
   }
 );
