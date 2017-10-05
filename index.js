@@ -48,28 +48,32 @@ alexaApp.intent(
   }
 );
 
+var slots = [];
+var utterances = [];
+for (i = 0; i < 15; i++) {
+  let tweetKey = `TWEET${i}`;
+  slots.push({ [tweetKey]: "LITERAL" });
+
+  let messagePrefix = "following message";
+
+  if (i === 0) {
+    utterances.push(`${messagePrefix} ${tweetKey}`);
+  } else {
+    let prior = utterances[i - 1];
+    utterances.push(`${prior} ${tweetKey}`);
+  }
+}
+
 alexaApp.intent(
   "post",
   {
-    slots: [
-      { TWEET1: "LITERAL" },
-      { TWEET2: "LITERAL" },
-      { TWEET3: "LITERAL" },
-      { TWEET4: "LITERAL" },
-      { TWEET5: "LITERAL" }
-    ],
-    utterances: [
-      "following message {TWEET1}",
-      "following message {TWEET1} {TWEET2}",
-      "following message {TWEET1} {TWEET2} {TWEET3}",
-      "following message {TWEET1} {TWEET2} {TWEET3} {TWEET4}",
-      "following message {TWEET1} {TWEET2} {TWEET3} {TWEET4} {TWEET5}"
-    ]
+    slots: slots,
+    utterances: utterances
   },
   function(request, response) {
     console.log("Intent received");
 
-    var tweet = request.slot("TWEET1") + request.slot("TWEET2");
+    var tweet = request.slot("TWEET1");
     sendMail(tweet, response);
     response.say("Success! I retrieved your tweet " + tweet);
   }
@@ -83,6 +87,7 @@ alexaApp.intent(
   },
   function(request, response) {
     console.log("Intent received");
+
     var tweet = request.slot("TWEET");
     console.log("received the following text: " + tweet);
     sendMail(tweet, response);
