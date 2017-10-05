@@ -65,8 +65,8 @@ alexaApp.intent("staffTweet", {
     },
     function (request, response) {
         console.log('Intent received')
-        console.log('received the following text: ' + tweetText)
         var tweet = request.slot("tweetText");
+        console.log('received the following text: ' + tweet)
         sendMail(tweet, response);
         response.say("Success! I retrieved your tweet " + tweet);
     }
