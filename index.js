@@ -91,7 +91,7 @@ alexaApp.intent(
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
     // response.say('Thank you!');
-    const feedbackTimer = setTimeout( () => {
+    const feedbackTimer = setInterval( () => {
       response.say('Thank you!');
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
