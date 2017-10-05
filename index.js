@@ -89,7 +89,7 @@ alexaApp.intent(
   function(request, response) {
     console.log("Intent received");
 
-    var tweet = request.slot("TWEET");
+    var tweet = request.slot("TWEETB");
     console.log("received the following text: " + tweet);
     sendMail(tweet, response);
     // response.say("Success! I retrieved your tweet " + tweet);
