@@ -77,7 +77,7 @@ alexaApp.intent(
     const values = Object.keys(slots).map(request.slot)
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ')
     sendMail(text, response);
-    response.say("Success! I retrieved your tweet " + tweet);
+    response.say("Success! I retrieved your tweet " + text);
   }
 );
 
