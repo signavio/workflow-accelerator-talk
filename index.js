@@ -94,7 +94,7 @@ alexaApp.intent(
     const feedbackTimer = setInterval( () => {
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
-        alexaApp.emit(':tell', 'Thank you!');
+        emit(':tell', 'Thank you!');
         preliminaryFeedback = undefined;
         clearInterval(feedbackTimer);
       }
