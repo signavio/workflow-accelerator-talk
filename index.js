@@ -96,11 +96,12 @@ alexaApp.intent(
         console.log("preliminary Feedback received");
         response.say('Thank you!');
         preliminaryFeedback = undefined;
+        clearInterval(feedbackTimer);
       }
       if (false) {
         response.say(finalFeedback);
         finalFeedback = undefined;
-        clearTimeout(feedbackTimer);
+        clearInterval(feedbackTimer);
       }
     }, 100);
     // response.say("Success! I retrieved your tweet " + text);
