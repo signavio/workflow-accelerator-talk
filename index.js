@@ -96,7 +96,7 @@ alexaApp.intent(
         response.say(preliminaryFeedback);
         preliminaryFeedback = undefined;
       }
-      if (finalFeedback) {
+      if (false) {
         response.say(finalFeedback);
         finalFeedback = undefined;
         clearTimeout(feedbackTimer);
