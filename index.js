@@ -50,9 +50,9 @@ alexaApp.intent(
 
 var slots = [];
 var utterances = [];
-for (i = 0; i < 15; i++) {
-  let tweetKey = `TWEET${i}`;
-  slots.push({ [tweetKey]: "LITERAL" });
+for (i = 1; i < 16; i++) {
+  let tweetKey = `TWEET${i}`
+  slots[tweetKey] = "LITERAL"
 
   let messagePrefix = "following message";
 
