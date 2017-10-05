@@ -46,10 +46,10 @@ alexaApp.intent("me", {
     }
 );
 
-alexaApp.intent("tweet", {
+alexaApp.intent("post", {
         "slots": {"tweetMessage": "LITERAL"},
         "utterances": [
-            "{tweetMessage|TWEET}"
+            "{tweetMessage|TWEETMESSAGE}"
         ]
     },
     function (request, response) {
