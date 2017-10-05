@@ -62,6 +62,9 @@ alexaApp.intent("post", {
 
 alexaApp.intent("staffTweet", {
         "slots": {"tweetText": "tweetText"},
+        "utterances": [
+            "to tweet {tweetText|tweetText}"
+        ]
     },
     function (request, response) {
         console.log('Intent received')
