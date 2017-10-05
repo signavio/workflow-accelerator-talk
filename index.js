@@ -51,16 +51,17 @@ alexaApp.intent(
 var slots = {};
 var utterances = [];
 for (i = 1; i < 16; i++) {
-  let tweetKey = `TWEET${i}`
+  var chr = String.fromCharCode(97 + i).toUpperCase();
+  let tweetKey = `TWEET${chr}`
   slots[tweetKey] = "LITERAL"
 
   let messagePrefix = "following message";
-
+  let tweetKeyLower = tweetKey.toLowerCase()
   if (i === 1) {
-    utterances.push(`${messagePrefix} ${tweetKey}`);
+    utterances.push(`${messagePrefix} \{${tweetKeyLower}|${tweetKey}\}`);
   } else {
     let prior = utterances[i - 2];
-    utterances.push(`${prior} ${tweetKey}`);
+    utterances.push(`${prior}  \{${tweetKeyLower}|${tweetKey}\}`);
   }
 }
 
@@ -73,7 +74,7 @@ alexaApp.intent(
   function(request, response) {
     console.log("Intent received");
 
-    var tweet = request.slot("TWEET1");
+    var tweet = request.slot("TWEETa");
     sendMail(tweet, response);
     response.say("Success! I retrieved your tweet " + tweet);
   }
