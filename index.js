@@ -72,9 +72,10 @@ alexaApp.intent(
     utterances: utterances
   },
   function(request, response) {
-    console.log("Intent received");
+    console.log("Post Intent received");
 
-    const values = Object.keys(slots).map(request.slot)
+    const keys = ["TWEET1", "TWEET2", "TWEET3", "TWEET4", "TWEET5", "TWEET6", "TWEET7", "TWEET8", "TWEET9", "TWEET10", "TWEET11", "TWEET12", "TWEET13", "TWEET14", "TWEET15"]
+    const values = keys.map(request.slot)
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ')
     sendMail(text, response);
     response.say("Success! I retrieved your tweet " + text);
@@ -88,7 +89,7 @@ alexaApp.intent(
     utterances: ["tweet {tweet|TWEET}"]
   },
   function(request, response) {
-    console.log("Intent received");
+    console.log("To Intent received");
 
     var tweet = request.slot("TWEET");
     console.log("received the following text: " + tweet);
