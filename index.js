@@ -86,21 +86,22 @@ alexaApp.intent(
     utterances: utterances
   },
   function(request, response) {
-    console.log("Intent received");
-
-    var tweet = request.slot("TWEETa");
-    sendMail(tweet, response);
+    console.log("Post Intent received");
+    const values = Object.keys(slots).map(key => request.slot(key));
+    const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
+    sendMail(text, response);
     const feedbackTimer = setTimeout( () => {
       if (preliminaryFeedback) {
         response.say(preliminaryFeedback);
-        preliminaryFeedback = undefined
+        preliminaryFeedback = undefined;
       }
       if (finalFeedback) {
         response.say(finalFeedback);
-        finalFeedback = undefined
-        clearTimeout(feedbackTimer)
+        finalFeedback = undefined;
+        clearTimeout(feedbackTimer);
       }
-    }, 2000)
+    }, 2000);
+    response.say("Success! I retrieved your tweet " + text);
   }
 );
 
@@ -111,7 +112,7 @@ alexaApp.intent(
     utterances: ["tweet {tweet|TWEET}"]
   },
   function(request, response) {
-    console.log("Intent received");
+    console.log("To Intent received");
 
     var tweet = request.slot("TWEET");
     console.log("received the following text: " + tweet);
