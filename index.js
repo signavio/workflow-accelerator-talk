@@ -71,7 +71,7 @@ alexaApp.intent("to", {
         var tweet = request.slot("TWEET");
         console.log('received the following text: ' + tweet)
         sendMail(tweet, response);
-        response.say("Success! I retrieved your tweet " + tweet);
+        // response.say("Success! I retrieved your tweet " + tweet);
     }
 );
 
