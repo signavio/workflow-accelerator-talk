@@ -92,7 +92,6 @@ alexaApp.intent(
     sendMail(text, response);
     // response.say('Thank you!');
     const feedbackTimer = setInterval( () => {
-      response.say('Thank you!');
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
         response.say('Thank you!');
