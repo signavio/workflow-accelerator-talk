@@ -48,7 +48,7 @@ alexaApp.intent(
   }
 );
 
-var slots = [];
+var slots = {};
 var utterances = [];
 for (i = 1; i < 16; i++) {
   let tweetKey = `TWEET${i}`
@@ -56,10 +56,10 @@ for (i = 1; i < 16; i++) {
 
   let messagePrefix = "following message";
 
-  if (i === 0) {
+  if (i === 1) {
     utterances.push(`${messagePrefix} ${tweetKey}`);
   } else {
-    let prior = utterances[i - 1];
+    let prior = utterances[i - 2];
     utterances.push(`${prior} ${tweetKey}`);
   }
 }
