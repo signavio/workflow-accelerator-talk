@@ -90,14 +90,15 @@ alexaApp.intent(
 
     var tweet = request.slot("TWEETa");
     sendMail(tweet, response);
-    setTimeout( () => {
-      if(preliminaryFeedback) {
+    const feedbackTimer = setTimeout( () => {
+      if (preliminaryFeedback) {
         response.say(preliminaryFeedback);
         preliminaryFeedback = undefined
       }
       if (finalFeedback) {
         response.say(finalFeedback);
         finalFeedback = undefined
+        clearTimeout(feedbackTimer)
       }
     }, 2000)
   }
