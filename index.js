@@ -94,7 +94,7 @@ alexaApp.intent(
     const feedbackTimer = setInterval( () => {
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
-        response.say('Thank you!');
+        alexaApp.emit(':tell', 'Thank you!');
         preliminaryFeedback = undefined;
         clearInterval(feedbackTimer);
       }
@@ -103,7 +103,7 @@ alexaApp.intent(
         finalFeedback = undefined;
         clearInterval(feedbackTimer);
       }
-    }, 100);
+    }, 1000);
     // response.say("Success! I retrieved your tweet " + text);
   }
 );
