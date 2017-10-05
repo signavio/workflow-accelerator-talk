@@ -60,6 +60,18 @@ alexaApp.intent("tweet", {
     }
 );
 
+alexaApp.intent("staffTweet", {
+        "slots": {"tweetText": "tweetText"},
+    },
+    function (request, response) {
+        console.log('Intent received')
+        console.log('received the following text: ' + tweetText)
+        var tweet = request.slot("tweetText");
+        sendMail(tweet, response);
+        response.say("Success! I retrieved your tweet " + tweet);
+    }
+);
+
 
 function sendMail(tweet, response) {
     var nodemailer = require('nodemailer');
