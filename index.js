@@ -93,7 +93,7 @@ alexaApp.intent(
     const feedbackTimer = setTimeout( () => {
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
-        response.say(preliminaryFeedback);
+        response.say('Thank you!');
         preliminaryFeedback = undefined;
       }
       if (false) {
