@@ -60,10 +60,10 @@ alexaApp.intent("post", {
     }
 );
 
-alexaApp.intent("staffTweet", {
+alexaApp.intent("to", {
         "slots": {"tweetText": "tweetText"},
         "utterances": [
-            "to tweet {tweetText|tweetText}"
+            "tweet {tweetText|tweetText}"
         ]
     },
     function (request, response) {
