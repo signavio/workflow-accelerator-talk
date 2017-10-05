@@ -47,14 +47,14 @@ alexaApp.intent("me", {
 );
 
 alexaApp.intent("tweet", {
-        "slots": {"TWEET": "LITERAL"},
+        "slots": {"tweetMessage": "LITERAL"},
         "utterances": [
-            "{tweet|TWEET}"
+            "{tweetMessage|TWEET}"
         ]
     },
     function (request, response) {
         console.log('Intent received')
-        var tweet = request.slot("TWEET");
+        var tweet = request.slot("tweetMessage");
         sendMail(tweet, response);
         response.say("Success! I retrieved your tweet " + tweet);
     }
