@@ -63,7 +63,7 @@ alexaApp.intent("post", {
 alexaApp.intent("to", {
         "slots": {"tweet": "tweetText"},
         "utterances": [
-            "tweet {tweet|tweetText}"
+            "tweet {tweet|tweet}"
         ]
     },
     function (request, response) {
