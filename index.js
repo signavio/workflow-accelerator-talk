@@ -143,7 +143,7 @@ alexaApp.intent(
           if (preliminaryFeedback) {
             clearInterval(feedbackTimer);
             console.log("preliminary Feedback received");
-            response.say(preliminaryFeedback).shouldEndSession(true);
+            response.say(preliminaryFeedback).shouldEndSession(false);
             preliminaryFeedback = null;
             return resolve('done');
           }
@@ -151,6 +151,18 @@ alexaApp.intent(
       }).then(()=> {
         console.log('done')
     })
+  }
+);
+
+alexaApp.intent(
+  "abort",
+  {
+    slots: {},
+    utterances: ["abort no"]
+  },
+  function(request, response) {
+    console.log("Abort Intent received");
+    response.say('Ok.').shouldEndSession(false)
   }
 );
 
