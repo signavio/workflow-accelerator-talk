@@ -90,7 +90,7 @@ alexaApp.intent(
     const values = Object.keys(slots).map(key => request.slot(key));
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
-    response.say('Are you sure you').reprompt("want to tweet" + text + "?").shouldEndSession(false);
+    const intialResponse = response.say('Are you sure you want to tweet' + text + '?').shouldEndSession(false).send();
     //response.say("Let's see whether tweeting" + text + "is fine.");
     function feedbackTimer(callback) {
       return new Promise((resolve, reject) => {
@@ -105,11 +105,10 @@ alexaApp.intent(
         }, 100);
       });
     };
-    return feedbackTimer()
-      .then(() => {
-        console.log('Promise resolved');
-        // response.say(finalFeedback);
-      });
+    intialResponse.then(() => {
+        return feedbackTimer()
+    }).then(()=> {console.log('done')})
+    return intialResponse
 
     /*const feedbackTimer = setInterval( () => {
       if (preliminaryFeedback) {
