@@ -143,7 +143,7 @@ alexaApp.intent(
           if (preliminaryFeedback) {
             clearInterval(feedbackTimer);
             console.log("preliminary Feedback received");
-            response.say(preliminaryFeedback).shouldEndSession(preliminaryFeedback.indexOf('profane') < 0);
+            response.say(preliminaryFeedback).shouldEndSession(true);
             preliminaryFeedback = null;
             return resolve('done');
           }
