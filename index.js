@@ -109,6 +109,8 @@ alexaApp.intent(
     return feedbackTimer()
       .then(() => {
         console.log('Promise resolved');
+        response.shouldEndSession(true)
+        response.say('Done')
         // response.say(finalFeedback);
       });
 
