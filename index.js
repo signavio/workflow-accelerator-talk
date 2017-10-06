@@ -147,7 +147,7 @@ alexaApp.intent(
             clearInterval(feedbackTimer);
             return resolve('done');
           }
-        }, 100);
+        }, 1000);
       });
     };
     return feedbackTimer()
