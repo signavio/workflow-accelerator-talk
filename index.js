@@ -90,7 +90,7 @@ alexaApp.intent(
     const values = Object.keys(slots).map(key => request.slot(key));
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
-    response.say('Are you sure you want to tweet' + text + '?')
+    response.reprompt('Are you sure you want to tweet' + text + '?').shouldEndSession(false)
     //response.say("Let's see whether tweeting" + text + "is fine.");
 
     /*const feedbackTimer = setInterval( () => {
