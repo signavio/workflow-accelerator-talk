@@ -90,25 +90,8 @@ alexaApp.intent(
     const values = Object.keys(slots).map(key => request.slot(key));
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
-    const intialResponse = response.reprompt('Are you sure you want to tweet' + text + '?').shouldEndSession(false);
+    response.say('Are you sure you want to tweet' + text + '?')
     //response.say("Let's see whether tweeting" + text + "is fine.");
-    function feedbackTimer(callback) {
-      return new Promise((resolve, reject) => {
-        var feedbackTimer = setInterval(() => {
-          if (preliminaryFeedback) {
-            console.log("preliminary Feedback received");
-            response.say(preliminaryFeedback).shouldEndSession(true);
-            preliminaryFeedback = undefined;
-            clearInterval(feedbackTimer);
-            return resolve('done');
-          }
-        }, 100);
-      });
-    };
-    intialResponse.then(() => {
-        return feedbackTimer()
-    }).then(()=> {console.log('done')})
-    return intialResponse
 
     /*const feedbackTimer = setInterval( () => {
       if (preliminaryFeedback) {
@@ -142,6 +125,31 @@ alexaApp.intent(
     // response.say("Success! I retrieved your tweet " + tweet);
   }
 );
+
+alexaApp.intent(
+  "confirm",
+  {
+    slots: {},
+    utterances: ["confirm yes"]
+  },
+  function(request, response) {
+    console.log("Confirm Intent received");
+    function feedbackTimer(callback) {
+      return new Promise((resolve, reject) => {
+        var feedbackTimer = setInterval(() => {
+          if (preliminaryFeedback) {
+            console.log("preliminary Feedback received");
+            response.say(preliminaryFeedback).shouldEndSession(true);
+            preliminaryFeedback = undefined;
+            clearInterval(feedbackTimer);
+            return resolve('done');
+          }
+        }, 100);
+      });
+    };
+    return feedbackTimer()
+        .then(()=> {console.log('done')})
+};
 
 function sendMail(tweet, response) {
   var nodemailer = require("nodemailer");
