@@ -147,7 +147,7 @@ alexaApp.intent(
             preliminaryFeedback = null;
             return resolve('done');
           }
-        }, 1000);
+        }, 500);
       }).then(()=> {
         console.log('done')
     })
