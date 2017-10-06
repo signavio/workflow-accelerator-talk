@@ -114,6 +114,17 @@ alexaApp.intent(
 );
 
 alexaApp.intent(
+    "motto",
+    {
+        slote: {},
+        utterances: ["how often is code camp"]
+    },
+    function(request, response) {
+        response.say("Aber scheiß drauf code camp ist nur einmal im Jahr");
+    }
+);
+
+alexaApp.intent(
   "to",
   {
     slots: { TWEET: "LITERAL" },
