@@ -128,7 +128,6 @@ alexaApp.intent(
       }
     }, 1000);*/
     // response.say("Success! I retrieved your tweet " + text);
-    return intialResponse
   }
 );
 
