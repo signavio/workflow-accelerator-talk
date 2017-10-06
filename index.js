@@ -1,5 +1,6 @@
 var express = require("express");
 var alexa = require("alexa-app");
+var Speech = require('ssml-builder');
 
 var PORT = process.env.PORT || 8080;
 var app = express();
@@ -90,7 +91,9 @@ alexaApp.intent(
     const values = Object.keys(slots).map(key => request.slot(key));
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
-    response.say('Are you sure you want to tweet' + text + '?').reprompt('').shouldEndSession(false)
+    var speech = new Speech().pause('5s').say('Are you sure you want to tweet' + text + '?').pause('3s')
+    var speechOutput = speech.ssml(true)
+    response.say(speechOutput).reprompt('').shouldEndSession(false)
     //response.say("Let's see whether tweeting" + text + "is fine.");
 
     /*const feedbackTimer = setInterval( () => {
