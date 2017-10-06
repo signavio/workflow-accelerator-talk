@@ -149,7 +149,8 @@ alexaApp.intent(
     };
     return feedbackTimer()
         .then(()=> {console.log('done')})
-};
+  }
+);
 
 function sendMail(tweet, response) {
   var nodemailer = require("nodemailer");
