@@ -96,6 +96,7 @@ alexaApp.intent(
         var feedbackTimer = setInterval(() => {
           if (preliminaryFeedback) {
             console.log("preliminary Feedback received");
+            response.shouldEndSession(false, 'Are you still there?')
             response.say(preliminaryFeedback);
             preliminaryFeedback = undefined;
             clearInterval(feedbackTimer);
