@@ -91,7 +91,8 @@ alexaApp.intent(
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
     response.shouldEndSession(false, 'Still checking')
-    response.say("Let's see whether tweeting" + text + "is fine.");
+    response.reprompt("Are you sure you want to tweet" + text + "?")
+    //response.say("Let's see whether tweeting" + text + "is fine.");
     function feedbackTimer(callback) {
       return new Promise((resolve, reject) => {
         var feedbackTimer = setInterval(() => {
