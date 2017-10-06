@@ -137,20 +137,21 @@ alexaApp.intent(
   },
   function(request, response) {
     console.log("Confirm Intent received");
-
-    return new Promise((resolve, reject) => {
+    function feedbackTimer(callback) {
+      return new Promise((resolve, reject) => {
         var feedbackTimer = setInterval(() => {
           if (preliminaryFeedback) {
-            clearInterval(feedbackTimer);
             console.log("preliminary Feedback received");
             response.say(preliminaryFeedback).shouldEndSession(true);
-            preliminaryFeedback = null;
+            preliminaryFeedback = undefined;
+            clearInterval(feedbackTimer);
             return resolve('done');
           }
-        }, 500);
-      }).then(()=> {
-        console.log('done')
-    })
+        }, 1000);
+      });
+    };
+    return feedbackTimer()
+        .then(()=> {console.log('done')})
   }
 );
 
