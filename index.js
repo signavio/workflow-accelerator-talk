@@ -93,7 +93,7 @@ alexaApp.intent(
     sendMail(text, response);
     var speech = new Speech().pause('5s').say('Are you sure you want to tweet' + text + '?').pause('3s')
     var speechOutput = speech.ssml(true)
-    response.say(speechOutput).shouldEndSession(false)
+    response.say(speechOutput).reprompt('').shouldEndSession(false)
     //response.say("Let's see whether tweeting" + text + "is fine.");
 
     /*const feedbackTimer = setInterval( () => {
