@@ -27,7 +27,6 @@ alexaApp.express({
 app.set("view engine", "ejs");
 
 var preliminaryFeedback
-var finalFeedback
 
 app.post("/preliminaryfeedback", function(req, res) {
   preliminaryFeedback = req.query.message || "Something went wrong."
@@ -96,22 +95,16 @@ alexaApp.intent(
         return sendMail(text, response);
     }).then(()=>{
       return new Promise((resolve, reject) => {
-        feedbackTimer = setInterval(() => {
+        var feedbackTimer = setInterval(() => {
           if (preliminaryFeedback) {
             console.log("preliminary Feedback received");
-            response.shouldEndSession(false, 'Are you still there?')
-            const feedbackResponse = response.say(preliminaryFeedback).send();
-            feedbackResponse.then(() => {resolve('feedback recevied')})
+            feedbackTimer = null
+            response.shouldEndSession(true)
+            const feedbackResponse = response.say(preliminaryFeedback)
+            resolve('feedback recevied')
           }
         }, 100);
       });
-    }).then(() => {
-        preliminaryFeedback = undefined;
-        clearInterval(feedbackTimer);
-        console.log('Promise resolved');
-        response.shouldEndSession(true)
-        return response.send()
-        // response.say(finalFeedback);
     }).then(() => {
         console.log('finished. send went through')
     });
