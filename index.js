@@ -103,7 +103,7 @@ alexaApp.intent(
             feedbackResponse.then(() => {resolve('feedback recevied')})
           }
         }, 100);
-      };
+      });
     }).then(() => {
         preliminaryFeedback = undefined;
         clearInterval(feedbackTimer);
