@@ -87,33 +87,33 @@ alexaApp.intent(
   },
   function(request, response) {
     console.log("Post Intent received");
-    response.shouldEndSession(false)
-    const intialResponse = response.say('Thanks').send()
-    intialResponse.then(() => {
-        const values = Object.keys(slots).map(key => request.slot(key));
-        const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
-        return sendMail(text, response);
-    }).then(()=>{
+    const values = Object.keys(slots).map(key => request.slot(key));
+    const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
+    sendMail(text, response);
+    // response.say('Thank you!');
+    function feedbackTimer(callback) {
       return new Promise((resolve, reject) => {
         var feedbackTimer = setInterval(() => {
           if (preliminaryFeedback) {
             console.log("preliminary Feedback received");
             response.shouldEndSession(false, 'Are you still there?')
-            const feedbackResponse = response.say(preliminaryFeedback).send();
-            feedbackResponse.then(() => {resolve('feedback recevied')})
+            response.say(preliminaryFeedback);
+            preliminaryFeedback = undefined;
+            clearInterval(feedbackTimer);
+            return resolve('done');
           }
         }, 100);
-      };
-    }).then(() => {
-        preliminaryFeedback = undefined;
-        clearInterval(feedbackTimer);
+      });
+    };
+  
+    return feedbackTimer()
+      .then(() => {
         console.log('Promise resolved');
         response.shouldEndSession(true)
-        return response.send()
+        response.say('Done')
         // response.say(finalFeedback);
-    }).then(() => {
-        console.log('finished. send went through')
-    });
+      });
+
     /*const feedbackTimer = setInterval( () => {
       if (preliminaryFeedback) {
         console.log("preliminary Feedback received");
@@ -164,6 +164,16 @@ function sendMail(tweet, response) {
       to: process.env.WF_MAIL,
       subject: "incoming tweet",
       text: tweet
+    },
+    function(error, info) {
+      if (error) {
+        console.log(error);
+        response.say("Error while sending mail.");
+      }
+      if (info) {
+        // response.say("Workflow triggered");
+        console.log("Message sent: " + info.response);
+      }
     }
   );
 }
