@@ -120,7 +120,7 @@ alexaApp.intent(
         utterances: ["how often is code camp"]
     },
     function(request, response) {
-        response.say("Aber shice drauf Code Camp eest nur ain mal im Jahr");
+        response.say("Ubber shice drauf Code Camp eest nur ain mal im Jahr");
     }
 );
 
