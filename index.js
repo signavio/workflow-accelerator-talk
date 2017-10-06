@@ -90,13 +90,14 @@ alexaApp.intent(
     const values = Object.keys(slots).map(key => request.slot(key));
     const text = values.filter(value => typeof value !== 'undefined' && value !== null).join(' ');
     sendMail(text, response);
-    // response.say('Thank you!');
+    response.shouldEndSession(false, 'Still checking')
+    response.say("Let's see whether tweeting" + text + "is fine.");
     function feedbackTimer(callback) {
       return new Promise((resolve, reject) => {
         var feedbackTimer = setInterval(() => {
           if (preliminaryFeedback) {
             console.log("preliminary Feedback received");
-            response.shouldEndSession(false, 'Are you still there?')
+            response.shouldEndSession(true)
             response.say(preliminaryFeedback);
             preliminaryFeedback = undefined;
             clearInterval(feedbackTimer);
@@ -109,8 +110,6 @@ alexaApp.intent(
     return feedbackTimer()
       .then(() => {
         console.log('Promise resolved');
-        response.shouldEndSession(true)
-        response.say('Done')
         // response.say(finalFeedback);
       });
 
