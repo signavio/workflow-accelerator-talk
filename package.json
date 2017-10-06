@@ -26,6 +26,7 @@
     "alexa-app": "^4.0.0",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
-    "nodemailer": "^4.1.1"
+    "nodemailer": "^4.1.1",
+    "ssml-builder": "^0.3.0"
   }
 }
