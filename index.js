@@ -64,6 +64,7 @@ alexaApp.intent(
 
 var slots = {};
 var utterances = [];
+var feedbackTimer
 for (i = 1; i < 16; i++) {
   var chr = String.fromCharCode(97 + i).toUpperCase();
   let tweetKey = `TWEET${chr}`
@@ -95,7 +96,7 @@ alexaApp.intent(
         return sendMail(text, response);
     }).then(()=>{
       return new Promise((resolve, reject) => {
-        var feedbackTimer = setInterval(() => {
+        feedbackTimer = setInterval(() => {
           if (preliminaryFeedback) {
             console.log("preliminary Feedback received");
             response.shouldEndSession(false, 'Are you still there?')
